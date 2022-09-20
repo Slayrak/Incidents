@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Incidents.Domain.Entities
+namespace Incidents.Domain.DTO
 {
-    public class Account : IEntity<long>
+    public class AccountDTO
     {
         public long Id { get; set; }
         public string AccountName { get; set; }
-        public ICollection<Contact> Contacts { get; set; }
 
 #nullable enable
-        public Incident? Incident { get; set; }
+        public IncidentDTO? Incident { get; set; }
 #nullable disable
+        public ICollection<ContactDTO> Contacts { get; set; }
     }
 }
