@@ -1,12 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Incidents.Infrastructure;
 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -33,6 +29,18 @@ namespace Incidents
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Incidents", Version = "v1" });
             });
+
+            services.AddDbContext<IncidentsDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("Incidents")));
+
+            //services.AddScoped<IUnitOfWork<long>, UnitOfWork<long>>(serviceProvider =>
+            //{
+            //    var context = serviceProvider.GetRequiredService<IncidentsDbContext>();
+            //    var unitOfWork = new UnitOfWork<long>(context);
+            //    unitOfWork.RegisterRepositories(typeof(IRepository<,>).Assembly, typeof(Repository<,>).Assembly);
+            //    return unitOfWork;
+            //});
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

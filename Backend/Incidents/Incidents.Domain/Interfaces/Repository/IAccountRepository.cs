@@ -10,6 +10,5 @@ namespace Incidents.Domain.Interfaces.Repository
     public interface IAccountRepository : IRepository<Account, long>
     {
         Task<Account> GetAccountByName(string name); 
-
     }
 }

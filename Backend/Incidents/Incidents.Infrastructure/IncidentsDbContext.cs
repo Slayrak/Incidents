@@ -11,7 +11,7 @@ namespace Incidents.Infrastructure
 {
     public class IncidentsDbContext : DbContext
     {
-        public IncidentsDbContext(DbContextOptions<DbContext> dbContextOptions)
+        public IncidentsDbContext(DbContextOptions<IncidentsDbContext> dbContextOptions)
             : base(dbContextOptions)
         { }
 
@@ -33,6 +33,10 @@ namespace Incidents.Infrastructure
 
             modelBuilder.Entity<Incident>()
                 .HasKey(x => x.IncidentName);
+
+            //modelBuilder.Entity<Incident>()
+            //    .HasIndex(x => x.Id)
+            //    .IsUnique();
 
             modelBuilder.Entity<Account>()
                 .HasMany(x => x.Contacts)
