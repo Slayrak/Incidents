@@ -1,3 +1,4 @@
+using Incidents.Application.Services;
 using Incidents.Infrastructure;
 
 using Microsoft.AspNetCore.Builder;
@@ -32,6 +33,11 @@ namespace Incidents
 
             services.AddDbContext<IncidentsDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("Incidents")));
+
+            services
+                .AddScoped<AccountService>()
+                .AddScoped<ContactService>()
+                .AddScoped<IncidentService>();
 
             //services.AddScoped<IUnitOfWork<long>, UnitOfWork<long>>(serviceProvider =>
             //{
