@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Incidents.Domain.Responces
 {
-    public class ErrorResponce
+    public class ErrorResponse
     {
         public HttpStatusCode StatusCode { get; set; }
 

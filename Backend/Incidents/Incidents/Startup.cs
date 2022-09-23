@@ -1,14 +1,16 @@
 using Incidents.Application.Services;
 using Incidents.Infrastructure;
+using Incidents.Middleware;
 
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
+using Newtonsoft.Json;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 
 namespace Incidents
 {
@@ -39,14 +41,9 @@ namespace Incidents
                 .AddScoped<ContactService>()
                 .AddScoped<IncidentService>();
 
-            //services.AddScoped<IUnitOfWork<long>, UnitOfWork<long>>(serviceProvider =>
-            //{
-            //    var context = serviceProvider.GetRequiredService<IncidentsDbContext>();
-            //    var unitOfWork = new UnitOfWork<long>(context);
-            //    unitOfWork.RegisterRepositories(typeof(IRepository<,>).Assembly, typeof(Repository<,>).Assembly);
-            //    return unitOfWork;
-            //});
-
+            services.AddControllers()
+              .AddNewtonsoftJson(options =>
+                  options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,6 +55,8 @@ namespace Incidents
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Incidents v1"));
             }
+
+            app.UseMiddleware<ExceptionHandlingMiddleWare>();
 
             app.UseHttpsRedirection();
 
