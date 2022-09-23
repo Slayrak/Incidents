@@ -4,7 +4,6 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Incidents.Domain.Entities;
-using Incidents.Domain.Interfaces;
 using Incidents.Domain.Requests;
 using Incidents.Domain.Responces;
 using Incidents.Infrastructure;

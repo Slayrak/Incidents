@@ -31,7 +31,7 @@ namespace Incidents.Application.Services
             {
                 var checkContact = await _context.Contacts.FirstOrDefaultAsync(x => x.Email == request.Email);
 
-                if (!(checkContact is null))
+                if (checkContact is null)
                 {
                     contact.Account = account;
                     await _context.Contacts.AddAsync(contact);

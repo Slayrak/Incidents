@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Incidents.Domain.Entities
 {
-    public class Account : IEntity<long>
+    public class Account
     {
         public long Id { get; set; }
         public string AccountName { get; set; }
